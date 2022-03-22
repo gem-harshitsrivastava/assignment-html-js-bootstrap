@@ -1,4 +1,48 @@
 <!DOCTYPE html>
-<html>
-    
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="myscript.js"></script>
+        <style>
+            .mycol{
+                border-right: 1px;
+                border-right-color: black;
+                border-style: solid;
+                padding: 0px;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container-fluid">
+        <div class="row" style="border: 5px;">
+            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 mycol">
+                <form style="padding: 10px;" class="myForm" onsubmit="validate()" method="post">
+                    <h2>Add New</h2>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input id="uname" type="text" placeholder="Your Full Name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>EmailId</label>
+                        <input id="uemail" type="email" placeholder="Your EmailId" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile</label>
+                        <input id="uphone" type="tel" placeholder="Your Contact number" class="form-control">
+                    </div>
+                        <button type="submit" class="btn btn-default" onclick="saveData()">Submit</button>
+                </form>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 mycol">
+                <table class="table">
+                    World
+                </table>
+            </div>
+        </div>
+    </div>
+    </body>
 </html>
