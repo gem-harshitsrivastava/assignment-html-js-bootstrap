@@ -3,13 +3,16 @@ var table=document.createElement("table");
 createTable();
 bringData();
 function bringData(){
+    console.log("("+localStorage.length)
+    if(localStorage.length!=0){
     info=[localStorage.getItem("name"),localStorage.getItem("email"),localStorage.getItem("phone")];
     console.log("!"+info);
     tableData();
+    }
 }
 function saveData(){
-    event.preventDefault();
-    var uname=document.getElementById('uname').value;
+   event.preventDefault();
+   var uname=document.getElementById('uname').value;
    var uemail=document.getElementById('uemail').value;
    var uphone=document.getElementById('uphone').value;
    localStorage.setItem("name",uname);
@@ -72,10 +75,12 @@ function validate(){
        flag+="phone ";
        }
    }
-if(f==0)
-   saveData();
-else
-  alert(flag+" Invalid");
+if(f==0){
+   saveData();return true;
+}
+else{
+  alert(flag+" Invalid");return false;
+}
 }
 function inputAlphabet(inputtext, alertMsg){
     var alphaExp = /^[a-zA-Z]+$/;
