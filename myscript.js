@@ -1,14 +1,42 @@
 var info=[];
 var table=document.createElement("table");
 createTable();
-bringData();
+multiBringData();
+//localStorage.clear();
 function bringData(){
     console.log("("+localStorage.length)
+    var index=0+(localStorage.length/3)-1;
+    console.log("("+index)
     if(localStorage.length!=0){
-    info=[localStorage.getItem("name"),localStorage.getItem("email"),localStorage.getItem("phone")];
+    info=[localStorage.getItem("name"+index),localStorage.getItem("email"+index),localStorage.getItem("phone"+index)];
     console.log("!"+info);
     tableData();
     }
+}
+function multiBringData(){
+
+    console.log("("+localStorage.length)
+    if(localStorage.length!=0){
+    for(var i=0;i<localStorage.length/3;i++){
+    info=[localStorage.getItem("name"+i),localStorage.getItem("email"+i),localStorage.getItem("phone"+i)];
+    console.log("!"+localStorage.getItem("name"+i));
+    console.log("!"+localStorage.getItem("email"+i));
+    console.log("!"+localStorage.getItem("phone"+i));
+    tableData();
+    }
+}
+}
+function mutiSaveData(){
+    event.preventDefault();
+   var uname=document.getElementById('uname').value;
+   var uemail=document.getElementById('uemail').value;
+   var uphone=document.getElementById('uphone').value;
+   var index=0+(localStorage.length/3);
+   console.log(index);
+   localStorage.setItem("name"+index,uname);
+   localStorage.setItem("email"+index,uemail);
+   localStorage.setItem("phone"+index,uphone);
+  bringData();
 }
 function saveData(){
    event.preventDefault();
@@ -76,7 +104,7 @@ function validate(){
        }
    }
 if(f==0){
-   saveData();return true;
+   mutiSaveData();return true;
 }
 else{
   alert(flag+" Invalid");return false;
