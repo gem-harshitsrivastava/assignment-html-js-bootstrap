@@ -1,77 +1,22 @@
-var keyid=0;
 var info=[];
 var table=document.createElement("table");
 createTable();
-//localStorage.clear();
-console.log("-"+localStorage.length)
-console.log(info);
 bringData();
 function bringData(){
-    console.log(keyid);
-    for(var i=0;i<localStorage.length/3;i++){
-        var arr=[]
-        arr[0]=window.localStorage.getItem("name"+i);
-        arr[1]=window.localStorage.getItem("email"+i);
-        arr[2]=window.localStorage.getItem("phone"+i);
-        info[i]=arr;
-    }
+    info=[localStorage.getItem("name"),localStorage.getItem("email"),localStorage.getItem("phone")];
+    console.log("!"+info);
     tableData();
 }
 function saveData(){
     event.preventDefault();
-    validate();
-   var uname=document.getElementById('uname').value;
+    var uname=document.getElementById('uname').value;
    var uemail=document.getElementById('uemail').value;
    var uphone=document.getElementById('uphone').value;
-   window.localStorage.setItem("name"+keyid,uname);
-   window.localStorage.setItem("email"+keyid,uemail);
-   window.localStorage.setItem("phone"+keyid,uphone);
-   
-   ++keyid;
-  
-    var tr=document.createElement("tr");
-    
-    var trText=document.createTextNode(uname);
-    var td=document.createElement("td");
-    td.style.border="1px solid";
-    td.append(trText);
-    console.log(td); 
-    tr.append(td);   
-    var trText=document.createTextNode(uemail);
-    var td=document.createElement("td");
-    td.style.border="1px solid";
-    td.append(trText);
-    console.log(td); 
-    tr.append(td);
-    var trText=document.createTextNode(uphone);
-    var td=document.createElement("td");
-    td.style.border="1px solid";
-    td.append(trText);
-    console.log(td); 
-    tr.append(td);
-    table.appendChild(tr);
-    console.log(table)
-    //fetchData();
+   localStorage.setItem("name",uname);
+   localStorage.setItem("email",uemail);
+   localStorage.setItem("phone",uphone);
+  bringData();
 }
-
-function fetchData(){
-    event.preventDefault();
-    console.log(keyid);
-    
-    for(var i=0;i<keyid;i++){
-        a=[]
-        var n=window.localStorage.getItem("name"+i);
-        var e=window.localStorage.getItem("email"+i);
-        var p=window.localStorage.getItem("phone"+i);
-        a[0]=n;a[1]=e;a[2]=p;
-        info[i]=a;
-        //console.log(i+""+n+" "+e+" "+p);
-    }
-    console.log(info);
-    //tableData();
-    
-}
-
 function createTable(){
     var abcd=document.getElementById("abcd");
     abcd.append(table);
@@ -86,40 +31,51 @@ function createTable(){
         th.style.border="1px solid";
         th.style.fontWeight="bold";
     }
-    
-    
 }
 function tableData(){
-    
-    for(let i in info){
-        var tr=document.createElement("tr");
-        for(let j in info[i]){
-        var trText=document.createTextNode(info[i][j]);
-        var td=document.createElement("td");
-        
-        td.style.border="1px solid";
-            td.append(trText);
-            console.log(td); 
-            tr.append(td);   
-        }
-        table.appendChild(tr);
-    }
+
+    var tr=document.createElement("tr");
+    var trText=document.createTextNode(info[0]);
+    var td=document.createElement("td");
+    td.append(trText);
+    tr.append(td); 
+    var trText=document.createTextNode(info[1]);
+    var td=document.createElement("td");
+    td.append(trText);
+    tr.append(td); 
+    var trText=document.createTextNode(info[2]);
+    var td=document.createElement("td");
+    td.append(trText);
+    tr.append(td); 
+    table.appendChild(tr);
 }
 function validate(){
    var uname=document.getElementById('uname').value;
    var uemail=document.getElementById('uemail').value;
    var uphone=document.getElementById('uphone').value;
-   if(uname==""){
-    alert("No Name Provided");
+   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+   var alphaExp = /^[a-zA-Z]+$/;
+   var f=0;
+   var flag="";
+   //inputAlphabet(uname,"Invalid NAME")
+    if(uname=="" || !uname.match(alphaExp)){
+        f=1;
+        flag+="name ";
    }
-   inputAlphabet(uname,"Invalid NAME")
-    if(uemail==""){
-    alert("No Email Provided");
-   }else if(uphone==""){
-    alert("No Phone Provided");
-   }else if(uphone.length!=10){
-    alert("Invalid Phone Provided");
+   if (!uemail.match(mailformat)) {
+        f=1;
+        flag+="email  ";
+  }
+    if(uphone!=''){
+       if(uphone.length!=10){
+       f=1;
+       flag+="phone ";
+       }
    }
+if(f==0)
+   saveData();
+else
+  alert(flag+" Invalid");
 }
 function inputAlphabet(inputtext, alertMsg){
     var alphaExp = /^[a-zA-Z]+$/;
@@ -127,7 +83,7 @@ function inputAlphabet(inputtext, alertMsg){
     return true;
     }else{
     alert(alertMsg);
-    inputtext.focus();
+    
     return false;
     }
 }
